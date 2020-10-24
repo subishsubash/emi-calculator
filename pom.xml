@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.subash.emi.calculator</groupId>
     <artifactId>emi-calculator</artifactId>
-    <version>1.0</version>
+    <version>DEV.1.0</version>
     <packaging>war</packaging>
     <name>EMI Calculator</name>
     <description>EMI Calculator</description>
