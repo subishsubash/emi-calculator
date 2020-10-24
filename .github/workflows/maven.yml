@@ -26,5 +26,6 @@ jobs:
       with:
         image: subash12396/emi-calculator
         tag: latest
+        registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
