@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * Entity file for Calculator Specs
  *
- * @author subash12396@gmail.com
+ * @author subash s
  */
 @Document
 public class CalculatorSpecs {

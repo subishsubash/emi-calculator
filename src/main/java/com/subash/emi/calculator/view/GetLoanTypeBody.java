@@ -5,7 +5,6 @@ import java.util.List;
 /**
  * GetLoanTypeBody
  */
-
 public class GetLoanTypeBody {
 
     private String returnCode;

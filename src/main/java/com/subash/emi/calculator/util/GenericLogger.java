@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * This class helps to manage the generic methods for logging
  *
- * @author subash12396@gmail.com
+ * @author subash s
  */
 public class GenericLogger {
 

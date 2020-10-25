@@ -7,7 +7,7 @@ import java.util.Locale;
 /**
  * Class helps to keep generic util methods
  *
- * @author subash12396@gmail.com
+ * @author subash s
  */
 public class GenericUtil {
 

@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * Entity file for loan type
  *
- * @author subash12396@gmail.com
+ * @author subash s
  */
 @Document
 public class LoanType {
