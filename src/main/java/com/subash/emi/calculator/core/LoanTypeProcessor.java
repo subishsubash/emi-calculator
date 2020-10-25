@@ -146,7 +146,7 @@ public class LoanTypeProcessor {
                     loanTypeBodyList.add(getLoanTypeBody(loanType));
                 }
             }
-            if (response.getReturnCode().isEmpty() || response.getReturnCode() == null) {
+            if (response.getReturnCode() == null || response.getReturnCode().isEmpty()) {
                 response.setLoanTypes(loanTypeBodyList);
                 response.setReturnCode("");
                 response.setAdditionalInfo("");
