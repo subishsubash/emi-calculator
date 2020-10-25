@@ -2,6 +2,8 @@ package com.subash.emi.calculator.view;
 
 /**
  * EMICalculatorResponse
+ *
+ * @author subash s
  */
 public class EMICalculatorResponse {
 

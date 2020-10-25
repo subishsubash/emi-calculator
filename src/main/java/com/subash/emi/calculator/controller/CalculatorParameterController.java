@@ -26,6 +26,12 @@ public class CalculatorParameterController {
     @Autowired
     private CalculatorParametersProcessor calculatorParametersProcessor;
 
+    /**
+     * Entry point for createCalculatorBoundary API
+     *
+     * @param createCalculatorBoundaryBody
+     * @return
+     */
     @RequestMapping(value = "/reference/calculator/settings", method = RequestMethod.POST)
     @ResponseBody
     public EMICalculatorResponse createCalcParameter(@RequestBody CreateCalculatorBoundaryBody createCalculatorBoundaryBody) {
@@ -35,6 +41,13 @@ public class CalculatorParameterController {
         return response;
     }
 
+    /**
+     * Entry point for updateCalculatorBoundary API
+     *
+     * @param loanTypeId
+     * @param calculatorBoundaryBody
+     * @return
+     */
     @RequestMapping(value = "/reference/calculator/settings/{loanType}", method = RequestMethod.PUT)
     @ResponseBody
     public EMICalculatorResponse updateCalcParameter(@PathVariable("loanType") String loanTypeId,
@@ -45,6 +58,12 @@ public class CalculatorParameterController {
         return response;
     }
 
+    /**
+     * Entry point for getCalculatorBoundary API
+     *
+     * @param loanTypeId
+     * @return
+     */
     @RequestMapping(value = "/reference/calculator/settings/{loanType}", method = RequestMethod.GET)
     @ResponseBody
     public GetCalculatorBoundaryBody getCalcParameter(@PathVariable("loanType") String loanTypeId) {

@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * GetLoanTypeBody
+ *
+ * @author subash s
  */
 public class GetLoanTypeBody {
 

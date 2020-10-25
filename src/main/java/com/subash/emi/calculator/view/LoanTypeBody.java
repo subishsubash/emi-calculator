@@ -2,6 +2,8 @@ package com.subash.emi.calculator.view;
 
 /**
  * LoanTypeBody
+ *
+ * @author subash s
  */
 public class LoanTypeBody {
     /**

@@ -1,11 +1,11 @@
 package com.subash.emi.calculator.view;
 
-import java.math.BigDecimal;
-
 /**
  * CreateCalculatorBoundaryBody
+ *
+ * @author suabsh s
  */
-public class CreateCalculatorBoundaryBody extends CalculatorBoundaryBody{
+public class CreateCalculatorBoundaryBody extends CalculatorBoundaryBody {
 
     private String loanType;
 
