@@ -2,6 +2,7 @@ package com.subash.emi.calculator.util;
 
 /**
  * Generic class to keep all the constant values
+ *
  * @author subash s
  */
 public class Constants {
