@@ -1,6 +1,8 @@
 package com.subash.emi.calculator.core;
 
+import com.subash.emi.calculator.model.CalculatorSpecs;
 import com.subash.emi.calculator.model.LoanType;
+import com.subash.emi.calculator.repository.CalculatorSpecsRepository;
 import com.subash.emi.calculator.repository.LoanTypeRepository;
 import com.subash.emi.calculator.util.Constants;
 import com.subash.emi.calculator.util.ErrorCodes;
@@ -22,7 +24,7 @@ import java.util.Optional;
 /**
  * Processor class helps to have methods for create, update, fetch and delete Loan Types
  *
- * @author subash12396@gmail.com
+ * @author subash s
  */
 @Component
 public class LoanTypeProcessor {
@@ -33,6 +35,9 @@ public class LoanTypeProcessor {
 
     @Autowired
     LoanTypeRepository loanTypeRepository;
+
+    @Autowired
+    private CalculatorSpecsRepository calculatorSpecsRepository;
 
     /**
      * Method helps to create record in Loan type
@@ -56,7 +61,6 @@ public class LoanTypeProcessor {
                 loanType.setLoanType(createLoanTypeBody.getLoanType());
                 saveLoanType(loanType);
                 response.setAdditionalInfo(Constants.CREATE_RECORD_SUCCESS);
-                response.setReturnCode("");
                 GenericLogger.logResponse(logger, uuid, "SUCCESS", Constants.CREATE_RECORD_SUCCESS);
             }
         } catch (Exception e) {
@@ -64,7 +68,6 @@ public class LoanTypeProcessor {
             GenericLogger.logResponse(logger, uuid, "ERROR", Constants.CREATE_RECORD_FAILURE);
             logger.debug(Constants.API_PROCESSED_FAILURE + " : " + e.getMessage());
             response.setAdditionalInfo(Constants.CREATE_RECORD_FAILURE);
-            response.setReturnCode("");
         }
         return response;
     }
@@ -91,7 +94,6 @@ public class LoanTypeProcessor {
                 description = loanTypeBody.getDescription();
                 saveLoanType(loanType);
                 response.setAdditionalInfo(Constants.UPDATE_RECORD_SUCCESS);
-                response.setReturnCode("");
                 GenericLogger.logResponse(logger, uuid, "SUCCESS", Constants.UPDATE_RECORD_SUCCESS);
             }
         } catch (Exception e) {
@@ -99,7 +101,6 @@ public class LoanTypeProcessor {
             GenericLogger.logResponse(logger, uuid, "ERROR", Constants.UPDATE_RECORD_FAILURE);
             logger.debug(Constants.API_PROCESSED_FAILURE + " : " + e.getMessage());
             response.setAdditionalInfo(Constants.UPDATE_RECORD_FAILURE);
-            response.setReturnCode("");
         }
         return response;
     }
@@ -148,16 +149,13 @@ public class LoanTypeProcessor {
             }
             if (response.getReturnCode() == null || response.getReturnCode().isEmpty()) {
                 response.setLoanTypes(loanTypeBodyList);
-                response.setReturnCode("");
-                response.setAdditionalInfo("");
             }
             GenericLogger.logResponse(logger, uuid, "SUCCESS", response);
         } catch (Exception e) {
             // Logger error response
             GenericLogger.logResponse(logger, uuid, "ERROR", Constants.API_PROCESSED_FAILURE);
             logger.debug(Constants.API_PROCESSED_FAILURE + " : " + e.getMessage());
-            response.setAdditionalInfo(Constants.API_PROCESSED_FAILURE);
-            response.setReturnCode("");
+            response.setAdditionalInfo(Constants.CREATE_RECORD_FAILURE);
         }
         return response;
     }
@@ -192,9 +190,13 @@ public class LoanTypeProcessor {
                 response.setAdditionalInfo(ErrorCodes.EM0_CALC_02_DESC);
                 response.setReturnCode(ErrorCodes.EMI_CALC_02_CODE);
             } else {
+                Optional<CalculatorSpecs> calculatorSpecsOptional = calculatorSpecsRepository.findById(loanTypeId);
+                if (calculatorSpecsOptional.isPresent()) {
+                    CalculatorSpecs calculatorSpecs = calculatorSpecsOptional.get();
+                    calculatorSpecsRepository.delete(calculatorSpecs);
+                }
                 LoanType loanType = loanTypeOptional.get();
                 loanTypeRepository.delete(loanType);
-                response.setReturnCode("");
                 response.setAdditionalInfo(Constants.DELETE_RECORD_SUCCESS);
                 GenericLogger.logResponse(logger, uuid, "SUCCESS", response);
             }
@@ -203,7 +205,6 @@ public class LoanTypeProcessor {
             GenericLogger.logResponse(logger, uuid, "ERROR", Constants.DELETE_RECORD_FAILURE);
             logger.debug(Constants.API_PROCESSED_FAILURE + " : " + e.getMessage());
             response.setAdditionalInfo(Constants.DELETE_RECORD_FAILURE);
-            response.setReturnCode("");
         }
         return response;
     }

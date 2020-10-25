@@ -1,5 +1,9 @@
 package com.subash.emi.calculator.util;
 
+/**
+ * Generic class to keep all the constant values
+ * @author subash s
+ */
 public class Constants {
 
     // Constants for logger
@@ -18,7 +22,9 @@ public class Constants {
     public final static String UPDATE_LOAN_TYPE_ID = "updateLoanType";
     public final static String GET_LOAN_TYPE_ID = "getLoanType";
     public final static String DELETE_LOAN_TYPE_ID = "deleteLoanType";
-    
+    public final static String CREATE_CALCULATOR_DETAILS = "createCalculatorBoundary";
+    public final static String UPDATE_CALCULATOR_DETAILS = "updateCalculatorBoundary";
+    public final static String GET_CALCULATOR_DETAILS = "getCalculatorBoundary";
 
     // API response
     public static final String CREATE_RECORD_SUCCESS = "Record created successfully";

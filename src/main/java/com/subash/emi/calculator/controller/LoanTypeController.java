@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Controller class for loan type APIs
  *
- * @author subash12396@gmail.com
+ * @author subash s
  */
 @Controller()
 public class LoanTypeController {
