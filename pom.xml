@@ -11,7 +11,7 @@
     <groupId>com.subash.emi.calculator</groupId>
     <artifactId>emi-calculator</artifactId>
     <version>DEV.1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>EMI Calculator</name>
     <description>EMI Calculator</description>
 

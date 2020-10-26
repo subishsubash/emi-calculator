@@ -133,11 +133,15 @@ public class LoanTypeProcessor {
             if (loanTypeId.equalsIgnoreCase("All")) {
                 List<LoanType> loanTypeList = loanTypeRepository.findAll();
                 for (LoanType loanType : loanTypeList) {
-                    loanTypeBodyList.add(getLoanTypeBody(loanType));
+                    Optional<CalculatorSpecs> calculatorSpecsOptional = calculatorSpecsRepository.findById(loanType.getLoanType());
+                    if (calculatorSpecsOptional.isPresent()) {
+                        loanTypeBodyList.add(getLoanTypeBody(loanType));
+                    }
                 }
             } else {
                 Optional<LoanType> loanTypeOptional = loanTypeRepository.findById(loanTypeId);
-                if (!loanTypeOptional.isPresent()) {
+                Optional<CalculatorSpecs> calculatorSpecsOptional = calculatorSpecsRepository.findById(loanTypeId);
+                if (!loanTypeOptional.isPresent() || !calculatorSpecsOptional.isPresent()) {
                     // returning error response if record is not exits for the loan type
                     response.setAdditionalInfo(ErrorCodes.EM0_CALC_02_DESC);
                     response.setReturnCode(ErrorCodes.EMI_CALC_02_CODE);
