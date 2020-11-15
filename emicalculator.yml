@@ -1,0 +1,262 @@
+openapi: "3.0.0"
+info:
+  title: EMI Calculator
+  description: API to manage the EMI Calculation process
+  version: 1.0.0
+
+tags:
+  - name: EMIcalculator
+    description: A collection of EMI  calculator api endpoints
+
+servers:
+  - url: http://localhost:8091/ms-emicalculator-api/api/v1.0.0
+
+paths:
+  /reference/calculator/settings:
+    post:
+      summary: Create the record in Loan CalculatorDetail with the basic details such as minimum  principle amount, Interest rate and Terms in month, maximum principle amount, Interest rate and Terms in month to Calculate the Loan amount by selecting the values between the range.
+      operationId: createCalculatorBoundary
+      tags:
+        - reference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCalculatorBoundaryBody"
+      responses:
+        '200':
+          description: The response from the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EMICalculatorResponse"
+  /reference/calculator/settings/{loanType}:
+    put:
+      summary: Update the record in Loan CalculatorDetail with the basic details such as minimum  principle amount, Interest rate and Terms in month, maximum principle amount, Interest rate and Terms in month to Calculate the Loan amount by selecting the values between the range.
+      operationId: updateCalculatorBoundary
+      tags:
+        - reference
+      parameters:
+        - name: loanType
+          in: path
+          description: Id of Loan CalculatorDetail table
+          required: true
+          example: HOME
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CalculatorBoundaryBody"
+      responses:
+        '200':
+          description: The response from the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EMICalculatorResponse"
+
+    get:
+      summary: Get details such as minimum  principle amount, Interest rate and Terms in month, maximum principle amount, Interest rate and Terms in month to Calculate the Loan amount.
+      operationId: getCalculatorBoundary
+      tags:
+        - reference
+      parameters:
+        - name: loanType
+          in: path
+          description: Id of Loan CalculatorDetail table
+          required: true
+          example: HOME
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The response from the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCalculatorBoundaryBody"
+
+  /system/loan:
+    post:
+      summary: API to create a loan Type in system level
+      operationId: createLoanType
+      tags:
+        - system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLoanTypeBody"
+      responses:
+        '200':
+          description: The response from the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EMICalculatorResponse"
+  /system/loan/{loanType}:
+    put:
+      summary: API to create a loan Type in system level
+      operationId: updateLoanType
+      tags:
+        - system
+      parameters:
+        - name: loanType
+          in: path
+          description: Id of Loan table
+          required: true
+          example: HOME
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoanTypeBody"
+      responses:
+        '200':
+          description: The response from the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EMICalculatorResponse"
+
+    delete:
+      summary: API to delete a loan Type in system level & also delete corresponding entry in calculator details table
+      operationId: deleteLoanType
+      tags:
+        - system
+      parameters:
+        - name: loanType
+          in: path
+          description: Id of Loan table
+          required: true
+          example: HOME
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The response from the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EMICalculatorResponse"
+    get:
+      summary: Get List of loan created in system
+      operationId: getLoanType
+      tags:
+        - system
+      parameters:
+        - name: loanType
+          in: path
+          description: Id of Loan table
+          required: true
+          example: ALL
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The response from the system
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetLoanTypeBody"
+
+components:
+  schemas:
+    LoanTypeBody:
+      properties:
+        currency:
+          type: string
+          enum: [USD, INR, EUR, SGD, GBP, CHY]
+          description: Base currency using in the bank
+        description:
+          type: string
+          description: Description for the Loan type and the payment mode
+          example: Home loan
+      required: [currency,description]
+
+    CalculatorBoundaryBody:
+      properties:
+        minAmount:
+          type: number
+          description: Minimum amount in selection range
+          example: 1000
+        maxAmount:
+          type: number
+          description: Maximum amount in selection range
+          example: 99999999
+        minInterestRate:
+          type: number
+          description: Minimum interest rate in selection range
+          example: 0
+        maxInterestRate:
+          type: number
+          description: Maximum interest rate in selection range
+          example: 15
+        minTermsInMonth:
+          type: number
+          description: Minimum terms in month in selection range
+          example: 1
+        maxTermsInMonth:
+          type: number
+          description: Maximum terms in month in selection range
+          example: 480
+
+      required: [
+        paymentType,
+        minAmount,
+        maxAmount,
+        minInterestRate,
+        maxInterestRate,
+        minTermsInMonth,
+        maxTermsInMonth]
+
+    EMICalculatorResponse:
+      properties:
+        returnCode:
+          type: string
+          description: The error code if there is a failure
+        additionalInfo:
+          type: string
+          description: The return response message or error message
+
+    GetCalculatorBoundaryBody:
+      allOf: [
+        $ref: "#/components/schemas/CalculatorBoundaryBody",
+        $ref: "#/components/schemas/EMICalculatorResponse"]
+      properties:
+        currencySymbol:
+          type: string
+          description: Symbol of the base currecny
+          example: "$"
+
+    CreateLoanTypeBody:
+      allOf: [
+        $ref: "#/components/schemas/LoanTypeBody"]
+      properties:
+        loanType:
+          type: string
+          description: primary key - Loan type
+          example: "HOME"
+
+    GetLoanTypeBody:
+      allOf: [
+        $ref: "#/components/schemas/EMICalculatorResponse"]
+      properties:
+        loanDetails:
+          type: array
+          items:
+            $ref: "#/components/schemas/CreateLoanTypeBody"
+    
+    CreateCalculatorBoundaryBody:
+      allOf: [
+        $ref: "#/components/schemas/CalculatorBoundaryBody"]
+      properties:
+        loanType:
+          type: string
+          description: primary key - Loan type
+          example: "HOME"
+    
