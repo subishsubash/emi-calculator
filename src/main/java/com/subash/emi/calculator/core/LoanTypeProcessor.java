@@ -159,7 +159,7 @@ public class LoanTypeProcessor {
             // Logger error response
             GenericLogger.logResponse(logger, uuid, "ERROR", Constants.API_PROCESSED_FAILURE);
             logger.debug(Constants.API_PROCESSED_FAILURE + " : " + e.getMessage());
-            response.setAdditionalInfo(Constants.CREATE_RECORD_FAILURE);
+            response.setAdditionalInfo(Constants.API_PROCESSED_FAILURE);
         }
         return response;
     }
