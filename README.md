@@ -64,6 +64,6 @@ docker run -p 9090:9090 --link mongodb:mongo --name emi-calculator-container  -d
  
  >Note: Replace the IP with docker enviornment
  
- >For more API details [refer swagger](https://github.com/subishsubash/emi-calculator)
+ >For more API details [refer swagger](https://github.com/subishsubash/emi-calculator/blob/main/emicalculator.yml)
  
 
