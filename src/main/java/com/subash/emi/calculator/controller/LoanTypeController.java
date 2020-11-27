@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Controller class for loan type APIs
  *
@@ -64,10 +66,11 @@ public class LoanTypeController {
      */
     @RequestMapping(value = "/system/loan/{loanType}", method = RequestMethod.GET)
     @ResponseBody
-    public GetLoanTypeBody getLoanType(@PathVariable("loanType") String loanTypeId) {
+    public GetLoanTypeBody getLoanType(@PathVariable("loanType") String loanTypeId, HttpServletResponse httpServletResponse) {
         // Log Request
         String UUID = GenericLogger.getUUID();
         GenericLogger.logRequest(logger, UUID, Constants.GET_LOAN_TYPE_ID, "GET", loanTypeId);
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         GetLoanTypeBody response = loanTypeProcessor.getLoanType(UUID, loanTypeId);
         return response;
     }

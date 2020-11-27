@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Controller class for Calculator Boundary API
  *
@@ -66,9 +68,10 @@ public class CalculatorParameterController {
      */
     @RequestMapping(value = "/reference/calculator/settings/{loanType}", method = RequestMethod.GET)
     @ResponseBody
-    public GetCalculatorBoundaryBody getCalcParameter(@PathVariable("loanType") String loanTypeId) {
+    public GetCalculatorBoundaryBody getCalcParameter(@PathVariable("loanType") String loanTypeId, HttpServletResponse httpServletResponse) {
         String uuid = GenericLogger.getUUID();
         GenericLogger.logRequest(logger, uuid, Constants.GET_CALCULATOR_DETAILS, "GET", loanTypeId);
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         GetCalculatorBoundaryBody response = calculatorParametersProcessor.getCalculatorParameters(uuid, loanTypeId);
         return response;
     }
